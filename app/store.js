@@ -17,10 +17,10 @@ export const addTask = (newTask, listName) => {
     }
 }
 
-export const removeTask = (targetTask) => {
+export const removeTask = (targetTask, listName) => {
     return {
         type: 'removeTask',
-        payload: targetTask
+        payload: {targetTask, listName}
     }
 }
 
