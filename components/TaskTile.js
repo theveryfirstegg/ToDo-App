@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 
 export default function TaskTile(props) {
   return(
@@ -29,7 +29,7 @@ export default function TaskTile(props) {
 const styles = StyleSheet.create({
   container: {
     width: 360,
-    height: 360,
+    height: 180,
     backgroundColor: '#57C5B6',
     borderRadius: 30,
     justifyContent: 'center',
