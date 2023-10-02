@@ -114,7 +114,7 @@ const MainScreen = (navigation, route) => {
       <BottomSheetModal
         ref={bottomSheetModalRef}
         index={0}
-        snapPoints={useMemo(() => ['40%'], [])}
+        snapPoints={useMemo(() => ['45%'], [])}
         backdropComponent={renderBackdrop}
         >
           <View style={styles.bottomsheetContainer}>
@@ -128,11 +128,29 @@ const MainScreen = (navigation, route) => {
                 placeholder='Description (optional)' 
                 onChangeText={text => setDescription(text)}/>
 
-            <Pressable style={styles.confirmButton} 
+            <Text style={[styles.setTitle, {marginTop: 8, marginBottom: 8}]}> COLOR </Text>
+            <View style={styles.colorsContainer}>
+              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#219C90'}]}/>
+              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#E9B824'}]}/>
+              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#EE9322'}]}/>
+              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#D83F31'}]}/>
+              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#191D88'}]}/>
+              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#1450A3'}]}/>
+              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#337CCF'}]}/>
+              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#FFC436'}]}/>
+
+              
+              
+            </View>
+            
+
+
+            <Pressable style={styles.confirmButton} disabled={listTitle === ''}
                 onPress={() => {
                   handleCloseModal()
                   handleAddList(listTitle, listDescription)
-
+                  setListTitle("")
+                  setDescription("")
                 }}>
 
                     <Text style={styles.confirmButtonText}>Confirm</Text>

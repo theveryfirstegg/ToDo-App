@@ -192,6 +192,21 @@ confirmButtonText: {
 bottomsheetContainer: {
   paddingHorizontal: 10
 
+},
+
+colorsContainer: {
+  padding: 5,
+  flexDirection: 'row',
+  justifyContent: 'center',
+
+},
+
+colorButton: {
+  borderRadius: 50,
+  width: 30,
+  height: 30,
+  marginHorizontal: 5
+
 }
 });
 

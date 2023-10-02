@@ -1,8 +1,6 @@
 import 'react-native-gesture-handler';
 
-import { createStackNavigator } from '@react-navigation/stack';
-import {NavigationContainer, useNavigation } from '@react-navigation/native';
-import { Keyboard, Text, View, StyleSheet, KeyboardAvoidingView, TextInput, TouchableOpacity, Button, Image, ScrollView } from 'react-native';
+import { Keyboard, Text, View, KeyboardAvoidingView, TextInput, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 
 // You can import from local files
@@ -10,7 +8,7 @@ import Task from '../components/Task';
 import styles from './TaskScreenStyles.styles'
 import { Icon } from 'react-native-elements'
 import { useDispatch, useSelector } from 'react-redux'
-import { addTask, store} from '../app/store';
+import { addTask, removeTask, store} from '../app/store';
 
 
 
@@ -44,10 +42,9 @@ const TaskScreen = ({ route, navigation }) => {
     /*Sets the taskItems to whatever was already in taskItems and */
   }
 
-  const completeTask = (index) => {
-    let itemsCopy = [...taskItems];
-    itemsCopy.splice(index, 1);
-    setTaskItems(itemsCopy);
+  const completeTask = (taskText) => {
+   
+    dispatch(removeTask(taskText, route.params.listName))
 
   }
 
@@ -66,7 +63,7 @@ const TaskScreen = ({ route, navigation }) => {
           {
             taskList.find((elem) => elem.name === route.params.listName).tasks.map((item, index) => {
               return (
-                <TouchableOpacity key={index} onPress={() => completeTask(index)}>
+                <TouchableOpacity key={index} onPress={() => completeTask(item)}>
                   <Task text={item}/>
                 </TouchableOpacity>
               );
