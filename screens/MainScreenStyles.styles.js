@@ -99,7 +99,8 @@ const styles = StyleSheet.create({
 
   addListButton: {
     backgroundColor: '#bdbcbb',
-    borderRadius: 20
+    borderRadius: 20,
+    marginBottom: 25
 
   },
 

@@ -1,9 +1,8 @@
 
 import 'react-native-gesture-handler';
 
-import { createStackNavigator } from '@react-navigation/stack';
-import {NavigationContainer, useNavigation } from '@react-navigation/native';
-import { Keyboard, Text, View, StyleSheet, KeyboardAvoidingView, TextInput,
+import { useNavigation } from '@react-navigation/native';
+import { Keyboard, Text, View, StyleSheet, TextInput,
        TouchableOpacity, Button, Image, ScrollView, Pressable} from 'react-native';
 import { useCallback, useState, useEffect, useRef, useMemo } from 'react';
 import {
@@ -12,6 +11,7 @@ import {
 	BottomSheetBackdrop,
   BottomSheetTextInput
 } from '@gorhom/bottom-sheet/src'
+import { MenuView } from '@react-native-menu/menu'
 import { addTaskList } from '../app/store';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -37,10 +37,11 @@ const MainScreen = (navigation, route) => {
 
   const [listTitle, setListTitle] = useState('');
   const [listDescription, setDescription] = useState('')
+  const [tileColor, setTileColor] = useState('')
 
 
-  const handleAddList = (listName, description) => {
-    dispatch(addTaskList({name: listName, description: description, tasks: []}))
+  const handleAddList = (listName, description, tileColor) => {
+    dispatch(addTaskList({name: listName, description: description, tasks: [], color: tileColor}))
 
   }
 
@@ -94,8 +95,9 @@ const MainScreen = (navigation, route) => {
           taskList.map((item, index) => {
             return(
               <TaskTile key={index} listTitle={item.name} 
-              listDescription={item.description} 
-              onPress={() => nav.navigate('Task', {listName: item.name, taskList: item.tasks})}/>
+              listDescription={item.description} color={item.color}
+              onPress={() => nav.navigate('Task', {listName: item.name, taskList: item.tasks, 
+                color: item.color})}/>
             )
           })     
         
@@ -106,9 +108,6 @@ const MainScreen = (navigation, route) => {
       <Text style={styles.addListText}>+</Text>
     </Pressable>
       
-      <Button title='Go to Task Screen' onPress={() => {
-        nav.navigate({name: 'Task', params: {listName: 'List Title Here'}})
-        }} />
 
 
       <BottomSheetModal
@@ -130,14 +129,22 @@ const MainScreen = (navigation, route) => {
 
             <Text style={[styles.setTitle, {marginTop: 8, marginBottom: 8}]}> COLOR </Text>
             <View style={styles.colorsContainer}>
-              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#219C90'}]}/>
-              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#E9B824'}]}/>
-              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#EE9322'}]}/>
-              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#D83F31'}]}/>
-              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#191D88'}]}/>
-              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#1450A3'}]}/>
-              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#337CCF'}]}/>
-              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#FFC436'}]}/>
+              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#219C90'}]}
+               onPress={() => setTileColor('#219C90')}/>
+              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#E9B824'}]}
+              onPress={() => setTileColor('#E9B824')}/>
+              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#EE9322'}]}
+              onPress={() => setTileColor('#EE9322')}/>
+              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#D83F31'}]}
+              onPress={() => setTileColor('#D83F31')}/>
+              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#191D88'}]}
+              onPress={() => setTileColor('#191D88')}/>
+              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#1450A3'}]}
+              onPress={() => setTileColor('#1450A3')}/>
+              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#337CCF'}]}
+              onPress={() => setTileColor('#337CCF')}/>
+              <TouchableOpacity style={[styles.colorButton, {backgroundColor: '#FFC436'}]}
+              onPress={() => setTileColor('#FFC436')}/>
 
               
               
@@ -148,9 +155,10 @@ const MainScreen = (navigation, route) => {
             <Pressable style={styles.confirmButton} disabled={listTitle === ''}
                 onPress={() => {
                   handleCloseModal()
-                  handleAddList(listTitle, listDescription)
+                  handleAddList(listTitle, listDescription, tileColor)
                   setListTitle("")
                   setDescription("")
+                  setTileColor("")
                 }}>
 
                     <Text style={styles.confirmButtonText}>Confirm</Text>
