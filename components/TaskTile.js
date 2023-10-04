@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 export default function TaskTile(props) {
   return(
     <TouchableOpacity>
-      <View style={styles.container}>
+      <View style={[styles.container, {backgroundColor: props.color}]}>
         <View style={styles.titleContainer}>
         <Text style={styles.tileTitle}> {props.listTitle} </Text>
         </View>
@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
   container: {
     width: 360,
     height: 180,
-    backgroundColor: '#57C5B6',
     borderRadius: 30,
     justifyContent: 'center',
     padding: 14,
@@ -57,14 +56,14 @@ const styles = StyleSheet.create({
     width: 55,
     height: 55,
     borderRadius: 50,
-    borderWidth: 0.5,
-    borderColor: 'white',
     alignItems: 'center',
+    backgroundColor: 'white',
+    opacity: 0.3
 
   },
 
   optionText: {
-    color: 'white',
+    color: 'black',
     fontSize: 30,
 
   },
